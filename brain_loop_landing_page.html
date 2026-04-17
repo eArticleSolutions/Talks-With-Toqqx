@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Loop Marketing — Stop Chasing, Start Being Chased</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: #111111;
+            --primary-purple: #8B5CF6;
+            --primary-hover: #7C3AED;
+            --text-main: #FFFFFF;
+            --text-muted: #A1A1AA;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glow-color: rgba(139, 92, 246, 0.2);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Glows */
+        .glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        .glow-1 { top: -200px; right: -200px; }
+        .glow-2 { bottom: -200px; left: -200px; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 32px;
+            filter: drop-shadow(0 0 8px var(--primary-purple));
+        }
+
+        /* Hero Section - Horizontal */
+        .hero {
+            padding: 6rem 0 4rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4rem;
+            text-align: left;
+            position: relative;
+        }
+        .hero-text { flex: 1.2; }
+        .hero-image-container { flex: 0.8; display: flex; justify-content: center; }
+
+        .eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.1);
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        h1 span {
+            background: linear-gradient(to bottom right, #FFFFFF, var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 16px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .pill {
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            border-color: var(--primary-purple);
+            color: var(--text-main);
+        }
+
+        /* Buttons */
+        .cta-btn {
+            display: inline-block;
+            background: var(--primary-purple);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .discount-info {
+            margin-top: 1.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px dashed var(--primary-purple);
+            padding: 1rem;
+            border-radius: 12px;
+            display: inline-block;
+            text-align: left;
+        }
+        .discount-code {
+            color: var(--primary-purple);
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Audio Player */
+        .audio-preview {
+            margin: 4rem 0;
+            background: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .audio-preview h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        audio {
+            width: 100%;
+            max-width: 500px;
+            filter: invert(1) hue-rotate(180deg) brightness(1.5);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--primary-purple);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        section p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        /* Grid / Steps */
+        .steps {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: var(--primary-purple);
+        }
+
+        .step-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-purple);
+            opacity: 0.5;
+        }
+
+        .step-body h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-body p {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        /* Format Cards */
+        .format-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .fcard {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .fcard-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .tl-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tl-dot {
+            width: 50px;
+            height: 50px;
+            background: var(--surface-color);
+            border: 2px solid var(--primary-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        /* Quote */
+        .quote-block {
+            margin: 4rem 0;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--surface-color) 0%, #1a1a1a 100%);
+            border-radius: 24px;
+            border-left: 4px solid var(--primary-purple);
+            position: relative;
+        }
+
+        .quote-block p {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-main);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 8rem 0;
+            text-align: center;
+            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
+        }
+
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+        .modal-container {
+            width: 95%;
+            max-width: 1000px;
+            height: 90vh;
+            background: #fff;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 10001;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 2px solid white;
+        }
+        .modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-sub { margin: 0 auto 3rem; }
+            .pill-row { justify-content: center; }
+            .discount-info { text-align: center; }
+            .step { flex-direction: column; gap: 0.5rem; }
+            .modal-close { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="modal-overlay" id="payhipModal">
+        <div class="modal-close" onclick="closeModal()">✕</div>
+        <div class="modal-container">
+            <iframe src="" class="modal-iframe" id="payhipIframe"></iframe>
+        </div>
+    </div>
+
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="talks_with_toqqx_purple_logo.png" alt="TOQQX Logo">
+            </a>
+            <button onclick="openModal('https://payhip.com/b/Apw9G')" class="cta-btn" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Get the Book</button>
+        </nav>
+
+        <header class="hero">
+            <div class="hero-text">
+                <div class="eyebrow">Audiobook + PDF Companion</div>
+                <h1>Stop chasing.<br>Start being <span>chased.</span></h1>
+                <p class="hero-sub">
+                    A framework built on actual human psychology — not vibes, not hustle, not a motivational poster font.
+                    The Brain Loop Marketing Method teaches you to plant a thought so irresistible, your ideal clients
+                    will slide into your DMs before you even ask them to.
+                </p>
+
+                <div class="pill-row">
+                    <div class="pill">Narrated audio</div>
+                    <div class="pill">PDF companion included</div>
+                    <div class="pill">Doodle-friendly margins</div>
+                    <div class="pill">Zero cringe CTAs</div>
+                </div>
+
+                <div class="cta-block">
+                    <button onclick="openModal('https://payhip.com/b/Apw9G')" class="cta-btn">Get the Audiobook + PDF</button>
+                    <br>
+                    <div class="discount-info">
+                        30% Discount for the first 50 buyers<br>
+                        Use code: <span class="discount-code">BLM-30</span> at checkout<br>
+                        <small>(Original $40 — Only $28 with code)</small>
+                    </div>
+                    <p class="cta-note">One purchase. Two formats. One slightly obsessed brain. (Yours.)</p>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img src="brain_loop_mockup_image.png" alt="Brain Loop Marketing Mockup" class="hero-image">
+            </div>
+        </header>
+
+        <div class="audio-preview">
+            <div class="section-label">Listen to a sample</div>
+            <h3>Preface: The Zeigarnik Effect</h3>
+            <audio controls>
+                <source src="preface_brain_loop_marketing.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <section id="problem">
+            <div class="section-label">The problem</div>
+            <h2>You have been doing it backwards. (Almost everyone has.)</h2>
+            <p>
+                Traditional marketing is basically standing in a busy street, grabbing strangers by the collar,
+                and shouting "BUY MY THING." The brain sees that coming from a mile away and shuts the door before you finish your sentence.
+            </p>
+            <p>
+                The Brain Loop Method uses the <strong>Zeigarnik Effect</strong> — a psychological principle that says the human brain genuinely cannot leave an unfinished thought alone.
+            </p>
+        </section>
+
+        <section id="framework">
+            <div class="section-label">The framework</div>
+            <h2>Five steps. One very uncomfortable silence at the end.</h2>
+            <p>
+                The method breaks down into a five-step loop structure you deploy where your ideal clients are already hanging out — comment sections, communities, forums.
+            </p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <div class="step-body">
+                        <h3>The specific mirror</h3>
+                        <p>You describe their pain so precisely they assume you've been reading their journal.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <div class="step-body">
+                        <h3>The turning point</h3>
+                        <p>A quick nod to the moment things changed for you. Enough to signal credibility. Not enough to give it all away.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <div class="step-body">
+                        <h3>The concrete outcome</h3>
+                        <p>Real numbers. Real timelines. Not "I changed my life!" — more like "I added $12k/month in 90 days."</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">04</div>
+                    <div class="step-body">
+                        <h3>The strategic tease</h3>
+                        <p>You hint at the mechanism. Just enough that their brain goes: wait, but how? (And there it is — the loop opens.)</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">05</div>
+                    <div class="step-body">
+                        <h3>The silent stop</h3>
+                        <p>You stop. No "DM me." Just nothing. And their brain, desperately needing closure, sends that message for you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="format">
+            <div class="section-label">The format</div>
+            <h2>Made for real humans.</h2>
+            <div class="format-cards">
+                <div class="fcard">
+                    <span class="fcard-icon">▶️</span>
+                    <h3>Audiobook</h3>
+                    <p>The full method, narrated. Listen while you do literally anything else.</p>
+                </div>
+                <div class="fcard">
+                    <span class="fcard-icon">📄</span>
+                    <h3>PDF Companion</h3>
+                    <p>Follow along, jot notes, or sketch while you listen. Interactivity built-in.</p>
+                </div>
+                <div class="fcard">
+                    <span class="fcard-icon">💎</span>
+                    <h3>Both, Together</h3>
+                    <p>One purchase. Complete flexibility. No compromises on how you learn.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <div class="section-label">The timeline</div>
+            <h2>What to expect.</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-dot">30d</div>
+                    <div class="tl-content">
+                        <h3>Initial traction</h3>
+                        <p>You find the balance of the loops. DMs start arriving. They feel slightly surreal.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">90d</div>
+                    <div class="tl-content">
+                        <h3>Primary pipeline</h3>
+                        <p>The method becomes your main lead generation engine. No more cold-pitching.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">6m</div>
+                    <div class="tl-content">
+                        <h3>Capacity problems</h3>
+                        <p>You hit capacity and have to choose: scale up, or raise your prices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ethics">
+            <div class="section-label">A note on ethics</div>
+            <div class="quote-block">
+                <p>"This method is persuasion, not manipulation. The second you start selling garbage, it eats your reputation alive."</p>
+            </div>
+            <p>
+                The Brain Loop Method works because it attracts the right people — those who already have the problem and want a solution.
+            </p>
+        </section>
+
+        <div class="final-cta">
+            <h2>Your brain already wants to know what's inside.</h2>
+            <p>That feeling right now — the mild curiosity — is the method, working on you in real time.</p>
+            <button onclick="openModal('https://payhip.com/b/Apw9G')" class="cta-btn">Get the Audiobook + PDF Companion</button>
+            <p class="cta-note">No DM required.</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Talks with Toqqx. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function openModal(url) {
+            document.getElementById('payhipIframe').src = url;
+            document.getElementById('payhipModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('payhipModal').style.display = 'none';
+            document.getElementById('payhipIframe').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

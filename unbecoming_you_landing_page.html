@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unbecoming You — The Paradox of Being Alive</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: #111111;
+            --primary-purple: #8B5CF6;
+            --primary-hover: #7C3AED;
+            --text-main: #FFFFFF;
+            --text-muted: #A1A1AA;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glow-color: rgba(139, 92, 246, 0.2);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(80px);
+        }
+        .glow-1 { top: -200px; right: -200px; }
+        .glow-2 { bottom: -200px; left: -200px; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+        nav { padding: 2rem 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 32px; filter: drop-shadow(0 0 8px var(--primary-purple)); }
+
+        /* Hero Section - Horizontal */
+        .hero {
+            padding: 6rem 0 4rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4rem;
+            text-align: left;
+            position: relative;
+        }
+        .hero-text { flex: 1.2; }
+        .hero-image-container { flex: 0.8; display: flex; justify-content: center; }
+
+        .eyebrow {
+            font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--primary-purple); margin-bottom: 1.5rem; display: inline-block;
+            background: rgba(139, 92, 246, 0.1); padding: 0.5rem 1.25rem; border-radius: 999px; border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 2rem; letter-spacing: -0.02em; }
+        h1 em { font-style: italic; color: var(--primary-purple); }
+        h1 span { background: linear-gradient(to bottom right, #FFFFFF, var(--primary-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; }
+
+        .hero-image {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 16px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+
+        .pill-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-start; margin-bottom: 3rem; }
+        .pill {
+            font-size: 0.85rem; padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid var(--border-color);
+            background: var(--surface-color); color: var(--text-muted); transition: all 0.3s ease;
+        }
+        .pill:hover { border-color: var(--primary-purple); color: var(--text-main); }
+
+        .cta-btn {
+            display: inline-block; background: var(--primary-purple); color: white; padding: 1.2rem 2.5rem;
+            border-radius: 12px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); border: none; cursor: pointer;
+        }
+        .cta-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4); }
+
+        .discount-info {
+            margin-top: 1.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px dashed var(--primary-purple);
+            padding: 1rem;
+            border-radius: 12px;
+            display: inline-block;
+            text-align: left;
+        }
+        .discount-code {
+            color: var(--primary-purple);
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        /* Audio Player */
+        .audio-preview {
+            margin: 4rem 0;
+            background: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .audio-preview h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        audio {
+            width: 100%;
+            max-width: 500px;
+            filter: invert(1) hue-rotate(180deg) brightness(1.5);
+        }
+
+        section { padding: 5rem 0; border-top: 1px solid var(--border-color); }
+        .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--primary-purple); margin-bottom: 2rem; font-weight: 700; }
+        h2 { font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 2rem; line-height: 1.2; }
+        section p { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 1.5rem; max-width: 800px; }
+
+        .parts { display: grid; gap: 1.5rem; margin-top: 3rem; }
+        .part {
+            background: var(--surface-color); padding: 2rem; border-radius: 16px; border: 1px solid var(--border-color);
+            display: flex; gap: 1.5rem; transition: border-color 0.3s ease;
+        }
+        .part:hover { border-color: var(--primary-purple); }
+        .part-label { font-size: 0.75rem; font-weight: 700; color: var(--primary-purple); text-transform: uppercase; min-width: 60px; padding-top: 4px; }
+        .part-body h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+
+        .ritual-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .rcard { background: var(--surface-color); padding: 2rem; border-radius: 16px; border: 1px solid var(--border-color); }
+        .rcard-num { font-size: 0.75rem; font-weight: 700; color: var(--primary-purple); text-transform: uppercase; margin-bottom: 1rem; display: block; }
+
+        .mantra-block { text-align: center; padding: 5rem 0; background: rgba(139, 92, 246, 0.05); border-radius: 32px; margin: 4rem 0; }
+        .mantra-words { display: flex; justify-content: center; align-items: center; gap: 2rem; margin: 3rem 0; flex-wrap: wrap; }
+        .mw-text { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
+        .mw-sub { font-size: 0.75rem; text-transform: uppercase; color: var(--primary-purple); letter-spacing: 0.1em; margin-top: 0.5rem; }
+        .mw-dot { width: 8px; height: 8px; background: var(--primary-purple); border-radius: 50%; opacity: 0.5; }
+
+        .quote-block {
+            margin: 4rem 0; padding: 3rem; background: linear-gradient(135deg, var(--surface-color) 0%, #1a1a1a 100%);
+            border-radius: 24px; border-left: 4px solid var(--primary-purple); position: relative;
+        }
+        .quote-block p { font-size: 1.5rem; font-style: italic; color: var(--text-main); line-height: 1.5; margin: 0; }
+
+        .final-cta { padding: 8rem 0; text-align: center; background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%); }
+        .series-badge {
+            font-size: 0.75rem; font-weight: 700; color: var(--primary-purple); background: rgba(139, 92, 246, 0.1);
+            padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 2rem; display: inline-block;
+        }
+
+        footer { padding: 4rem 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+        .modal-container {
+            width: 95%;
+            max-width: 1000px;
+            height: 90vh;
+            background: #fff;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 10001;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 2px solid white;
+        }
+        .modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-sub { margin: 0 auto 3rem; }
+            .pill-row { justify-content: center; }
+            .discount-info { text-align: center; }
+            h1 { font-size: 2.75rem; }
+            .mantra-words { flex-direction: column; gap: 1rem; }
+            .mw-dot { display: none; }
+            .modal-close { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="modal-overlay" id="payhipModal">
+        <div class="modal-close" onclick="closeModal()">✕</div>
+        <div class="modal-container">
+            <iframe src="" class="modal-iframe" id="payhipIframe"></iframe>
+        </div>
+    </div>
+
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="talks_with_toqqx_purple_logo.png" alt="TOQQX Logo">
+            </a>
+            <button onclick="openModal('https://payhip.com/b/TL2xy')" class="cta-btn" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Get the Book</button>
+        </nav>
+
+        <header class="hero">
+            <div class="hero-text">
+                <div class="eyebrow">Audiobook + PDF Companion &nbsp;·&nbsp; Book 2 in the Series</div>
+                <h1>You have already died<br>several times. <em>Shall we talk?</em></h1>
+                <p class="hero-sub">
+                    A philosophical guide to the quiet, invisible endings that happen while you're still very much alive —
+                    and walking around, making coffee, and pretending to be fine.
+                </p>
+
+                <div class="pill-row">
+                    <div class="pill">Narrated audio</div>
+                    <div class="pill">PDF companion included</div>
+                    <div class="pill">Zero toxic positivity</div>
+                    <div class="pill">Doodle-friendly margins</div>
+                </div>
+
+                <div class="cta-block">
+                    <button onclick="openModal('https://payhip.com/b/TL2xy')" class="cta-btn">Get the Audiobook + PDF</button>
+                    <br>
+                    <div class="discount-info">
+                        30% Discount for the first 50 buyers<br>
+                        Use code: <span class="discount-code">UBYU-30</span> at checkout<br>
+                        <small>(Original $40 — Only $28 with code)</small>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img src="unbecoming_you_mockup_image.png" alt="Unbecoming You Mockup" class="hero-image">
+            </div>
+        </header>
+
+        <div class="audio-preview">
+            <div class="section-label">Listen to a sample</div>
+            <h3>Preface: The Paradox of Being Alive</h3>
+            <audio controls>
+                <source src="preface_unbecoming_you.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <section id="premise">
+            <div class="section-label">The premise</div>
+            <h2>Nobody taught you how to grieve yourself.</h2>
+            <p>
+                Society has rituals for most endings. Funerals. Breakups. Resignations. But when you quietly stop being the person you used to be — the version with different dreams, different beliefs — there is no ceremony for that.
+            </p>
+            <p>
+                So you carry the ghost of that old self around. You let it make decisions for you. Deeply inconvenient. Extremely common.
+            </p>
+            <p>This book gives that ghost a proper send-off.</p>
+        </section>
+
+        <section id="inside">
+            <div class="section-label">Inside the book</div>
+            <h2>Five parts. Several small existential crises.</h2>
+            <div class="parts">
+                <div class="part">
+                    <div class="part-label">Part 1</div>
+                    <div class="part-body">
+                        <h3>The deaths you can see</h3>
+                        <p>The mirror. The body. The slow realization that the person looking back and the person you feel like have diverged.</p>
+                    </div>
+                </div>
+                <div class="part">
+                    <div class="part-label">Part 2</div>
+                    <div class="part-body">
+                        <h3>The deaths that happen in silence</h3>
+                        <p>The version of you who was supposed to have it all figured out by now. The hollow view from the top of the goals you climbed.</p>
+                    </div>
+                </div>
+                <div class="part">
+                    <div class="part-label">Part 3</div>
+                    <div class="part-body">
+                        <h3>The deaths that break you open</h3>
+                        <p>Belief systems collapsing. The exhausting performance of being well — and the relief when you finally stop.</p>
+                    </div>
+                </div>
+                <div class="part">
+                    <div class="part-label">Part 4</div>
+                    <div class="part-body">
+                        <h3>The process of release</h3>
+                        <p>The practical bit. A three-step ritual — Name, Thank, Release — for actually letting go with intention.</p>
+                    </div>
+                </div>
+                <div class="part">
+                    <div class="part-label">Part 5</div>
+                    <div class="part-body">
+                        <h3>Future perspectives</h3>
+                        <p>The person reading this right now will also be mourned by a future version of you. The current you is already on borrowed time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ritual">
+            <div class="section-label">The ritual</div>
+            <h2>Name. Thank. Release.</h2>
+            <div class="ritual-cards">
+                <div class="rcard">
+                    <span class="rcard-num">Step one</span>
+                    <h3>Name it</h3>
+                    <p>Identify the version of yourself that has ended. Give it a real name.</p>
+                </div>
+                <div class="rcard">
+                    <span class="rcard-num">Step two</span>
+                    <h3>Thank it</h3>
+                    <p>It kept you alive. It did its job. It got you here. That deserves acknowledgment.</p>
+                </div>
+                <div class="rcard">
+                    <span class="rcard-num">Step three</span>
+                    <h3>Release it</h3>
+                    <p>Formally let it go. Allowing it to have been real, finished, and done.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="mantra-block">
+            <div class="section-label">The daily mantra</div>
+            <div class="mantra-words">
+                <div class="mantra-word">
+                    <div class="mw-text">Hello.</div>
+                    <div class="mw-sub">Arrival</div>
+                </div>
+                <div class="mw-dot"></div>
+                <div class="mantra-word">
+                    <div class="mw-text">Thank you.</div>
+                    <div class="mw-sub">Gratitude</div>
+                </div>
+                <div class="mw-dot"></div>
+                <div class="mantra-word">
+                    <div class="mw-text">Goodbye.</div>
+                    <div class="mw-sub">Release</div>
+                </div>
+            </div>
+        </div>
+
+        <section id="conclusion">
+            <div class="section-label">The honest conclusion</div>
+            <div class="quote-block">
+                <p>"The goal is not healing. The goal is learning to die efficiently — to move between versions of yourself with grace."</p>
+            </div>
+            <p>
+                Peace is not a mountaintop. It is tired acceptance — the kind that arrives when you finally stop fighting the fact that you are always in the middle of becoming something new.
+            </p>
+        </section>
+
+        <div class="final-cta">
+            <div class="series-badge">Book 2 in the series</div>
+            <h2>You have already survived every previous version of yourself.</h2>
+            <p style="margin-bottom: 2rem;">This book is for the part of you that's still catching up to the ending.</p>
+            <button onclick="openModal('https://payhip.com/b/TL2xy')" class="cta-btn">Get Unbecoming You — Audiobook + PDF</button>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Talks with Toqqx. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function openModal(url) {
+            document.getElementById('payhipIframe').src = url;
+            document.getElementById('payhipModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('payhipModal').style.display = 'none';
+            document.getElementById('payhipIframe').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

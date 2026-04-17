@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talks With Toqqx — Conversations That Matter</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: #111111;
+            --primary-purple: #8B5CF6;
+            --primary-hover: #7C3AED;
+            --text-main: #FFFFFF;
+            --text-muted: #A1A1AA;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glow-color: rgba(139, 92, 246, 0.2);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .glow {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(100px);
+        }
+        .glow-1 { top: -300px; right: -300px; }
+        .glow-2 { bottom: -300px; left: -300px; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+        nav { padding: 2.5rem 0; display: flex; justify-content: center; align-items: center; }
+        .logo img { height: 40px; filter: drop-shadow(0 0 12px var(--primary-purple)); }
+
+        /* Horizontal Hero Layout */
+        .hero { 
+            padding: 4rem 0 8rem; 
+            display: flex; 
+            flex-direction: row;
+            align-items: center; 
+            gap: 4rem;
+            text-align: left;
+        }
+        .hero-text { flex: 1.2; }
+        .hero-image-container { flex: 0.8; display: flex; justify-content: center; }
+        .hero-image {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            filter: drop-shadow(0 0 30px var(--glow-color));
+            border-radius: 24px;
+        }
+
+        .eyebrow {
+            font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--primary-purple); margin-bottom: 2rem; display: inline-block;
+            background: rgba(139, 92, 246, 0.1); padding: 0.5rem 1.5rem; border-radius: 999px; border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 2rem; letter-spacing: -0.02em; }
+        h1 em { font-style: italic; color: var(--primary-purple); }
+        h1 span { background: linear-gradient(to bottom right, #FFFFFF, var(--primary-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3.5rem; }
+
+        .cta-btn {
+            display: inline-block; background: var(--primary-purple); color: white; padding: 1.2rem 2.8rem;
+            border-radius: 14px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3); border: none; cursor: pointer;
+        }
+        .cta-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
+
+        section { padding: 6rem 0; border-top: 1px solid var(--border-color); }
+        .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--primary-purple); margin-bottom: 2.5rem; font-weight: 700; }
+        h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 2.5rem; line-height: 1.2; font-weight: 800; }
+        h2 em { font-style: italic; color: var(--primary-purple); }
+        section p { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 800px; }
+
+        .not-list { list-style: none; margin: 4rem 0; display: grid; gap: 1.5rem; }
+        .not-item {
+            background: var(--surface-color); padding: 2.5rem; border-radius: 20px; border: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+        .not-item:hover { border-color: var(--primary-purple); }
+        .not-item strong { display: block; font-size: 1.4rem; color: var(--text-main); margin-bottom: 0.5rem; }
+        .not-item span { color: var(--text-muted); font-size: 1.1rem; }
+
+        .parts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
+        .part { background: var(--surface-color); padding: 3rem; border-radius: 24px; border: 1px solid var(--border-color); }
+        .part-icon { font-size: 2.5rem; color: var(--primary-purple); margin-bottom: 1.5rem; display: block; }
+        .part h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+        .part p { font-size: 1rem; margin-bottom: 0; }
+
+        .sessions { display: grid; gap: 3rem; margin-top: 4rem; }
+        .session {
+            background: linear-gradient(145deg, var(--surface-color) 0%, #0a0a0a 100%);
+            border-radius: 32px; border: 1px solid var(--border-color);
+            position: relative; transition: all 0.4s ease; overflow: hidden;
+            display: flex; flex-direction: row; align-items: stretch;
+        }
+        .session:hover { border-color: var(--primary-purple); transform: translateY(-4px); }
+        
+        .session-image-container {
+            flex: 0 0 380px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            border-right: 1px solid var(--border-color);
+        }
+        .session-image-item {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+        }
+
+        .session-content { padding: 4rem; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .session-num { font-size: 0.8rem; font-weight: 700; color: var(--primary-purple); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; display: block; }
+        .session h3 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.1; }
+        .session .tagline { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2rem; display: block; font-style: italic; }
+        .session-points { list-style: none; margin-bottom: 2.5rem; }
+        .session-points li { color: var(--text-muted); font-size: 1rem; padding: 0.4rem 0 0.4rem 1.5rem; position: relative; }
+        .session-points li::before { content: '→'; position: absolute; left: 0; color: var(--primary-purple); }
+
+        .session-btn {
+            display: inline-flex; align-items: center; gap: 12px; font-weight: 700; text-decoration: none;
+            color: var(--text-main); font-size: 1.1rem; transition: gap 0.3s ease;
+        }
+        .session-btn:hover { gap: 20px; color: var(--primary-purple); }
+
+        .quote-block {
+            margin: 5rem 0; padding: 4rem; background: rgba(139, 92, 246, 0.05); border-radius: 32px;
+            border-left: 6px solid var(--primary-purple);
+        }
+        .quote-block p { font-size: 2rem; font-style: italic; color: var(--text-main); line-height: 1.4; margin: 0; font-weight: 300; }
+
+        .final-cta { padding: 10rem 0; text-align: center; border-top: 1px solid var(--border-color); }
+        .final-cta h2 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1.5rem; }
+        .final-cta p { font-size: 1.25rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 3.5rem; }
+
+        footer { padding: 5rem 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 1rem; letter-spacing: 0.05em; }
+
+        @media (max-width: 900px) {
+            .hero { flex-direction: column-reverse; text-align: center; padding: 4rem 0; }
+            .hero-sub { margin-left: auto; margin-right: auto; }
+            .session { flex-direction: column; }
+            .session-image-container {
+                flex: 0 0 auto;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 3rem;
+            }
+            .session-image-item { max-height: 300px; }
+            .session-content { padding: 3rem; }
+        }
+
+        @media (max-width: 600px) {
+            .session-content { padding: 2rem; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.25rem; }
+            .session h3 { font-size: 1.8rem; }
+            .quote-block p { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="talks_with_toqqx_purple_logo.png" alt="TOQQX Logo">
+            </a>
+        </nav>
+
+        <header class="hero">
+            <div class="hero-text">
+                <div class="eyebrow">Talks With Toqqx</div>
+                <h1>Because some conversations are too important to have <em>alone.</em></h1>
+                <div class="hero-sub">
+                    <p>Divorce. A business that isn't working. Ageing parents. A career that looks right on paper — but doesn't feel it.</p>
+                    <p style="margin-top: 1.5rem;">Life and work don't happen separately. Neither do these conversations.</p>
+                </div>
+                <a href="#sessions" class="cta-btn">Start your first conversation</a>
+            </div>
+            <div class="hero-image-container">
+                <img src="toqqx_hero.png" alt="Talks With Toqqx Hero" class="hero-image">
+            </div>
+        </header>
+
+        <section id="what-it-is">
+            <div class="section-label">What this is</div>
+            <h2>Not a podcast. Not a course. <em>A conversation you step into.</em></h2>
+            
+            <div class="not-list">
+                <div class="not-item">
+                    <strong>Not a podcast</strong>
+                    <span>No episodes you half-listen to and forget.</span>
+                </div>
+                <div class="not-item">
+                    <strong>Not a course</strong>
+                    <span>No modules. No progress bars judging you.</span>
+                </div>
+                <div class="not-item">
+                    <strong>Human-centered</strong>
+                    <span>Not someone talking at you from a distance as if they've figured everything out.</span>
+                </div>
+            </div>
+
+            <p>It's something you can follow — until your own thinking starts to settle into place.</p>
+        </section>
+
+        <section id="how-it-works">
+            <div class="section-label">How it works</div>
+            <h2>Every session comes in two parts.</h2>
+            <p>One for when you're moving. One for when something lands harder than expected.</p>
+
+            <div class="parts-grid">
+                <div class="part">
+                    <span class="part-icon">🎙️</span>
+                    <h3>The Conversation</h3>
+                    <p>A real voice. Calm, direct, human. Listen while driving or staring at the ceiling at 2am.</p>
+                </div>
+                <div class="part">
+                    <span class="part-icon">📄</span>
+                    <h3>The Companion</h3>
+                    <p>A PDF for the parts that land harder. Highlight what matters. Leave a note that only makes sense to you later.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sessions">
+            <div class="section-label">Start with what feels familiar</div>
+
+            <div class="sessions">
+                <div class="session">
+                    <div class="session-image-container">
+                        <img src="brain_loop_card_image.png" alt="Brain Loop Marketing" class="session-image-item">
+                    </div>
+                    <div class="session-content">
+                        <span class="session-num">Session 01</span>
+                        <h3>The Brain Loop Marketing Method</h3>
+                        <span class="tagline">Stop chasing customers — understand why they come to you.</span>
+                        <ul class="session-points">
+                            <li>Why most messaging gets ignored, quickly</li>
+                            <li>What's actually happening in your customer's head</li>
+                            <li>How to build something people move toward — without pressure</li>
+                        </ul>
+                        <a href="brain_loop_landing_page.html" class="session-btn">Start this conversation &nbsp; →</a>
+                    </div>
+                </div>
+
+                <div class="session">
+                    <div class="session-image-container">
+                        <img src="unbecoming_you_card_image.png" alt="Unbecoming You" class="session-image-item">
+                    </div>
+                    <div class="session-content">
+                        <span class="session-num">Session 02</span>
+                        <h3>Unbecoming You</h3>
+                        <span class="tagline">When you can't tell if you're stuck — or changing.</span>
+                        <ul class="session-points">
+                            <li>Why overthinking isn't the real problem</li>
+                            <li>How to carry things without it taking over everything</li>
+                            <li>What this phase might actually be — even if it doesn't feel great</li>
+                        </ul>
+                        <a href="unbecoming_you_landing_page.html" class="session-btn">Start this conversation &nbsp; →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why">
+            <div class="section-label">Why this works</div>
+            <h2>There's no performance here.</h2>
+            <div class="quote-block">
+                <p>"It just starts where you are — and stays there long enough for something to shift."</p>
+            </div>
+            <p>No one is trying to sound impressive. No "let me simplify this for you" energy.</p>
+        </section>
+
+        <div class="final-cta">
+            <h2>You don't need more advice.</h2>
+            <p>You need a way to think clearly while you're in the middle of it.</p>
+            <a href="#sessions" class="cta-btn">Browse the Conversations</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Talks With Toqqx. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
