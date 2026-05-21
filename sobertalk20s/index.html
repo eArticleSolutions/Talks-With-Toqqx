@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SoberTalk20s — Rewrite the Pattern Before It Rewrites You</title>
+<meta name="description" content="The course, community, and AI partner for people serious about changing their relationship with alcohol in their 20s — before it becomes 30 years of damage." />
+<meta name="author" content="SoberTalk20s" />
+<meta property="og:title" content="SoberTalk20s — Rewrite the Pattern" />
+<meta property="og:description" content="The course, community, and AI partner for sober life in your 20s. No AA language. No judgment." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   SoberTalk20s — single-file HTML version
+   Dark editorial palette: midnight navy / dawn teal / coral / amber
+   Fonts: Syne (display), Outfit (body)
+   ========================================================= */
+
+:root{
+  --bg:#070B14;
+  --bg-1:#0D1220;
+  --bg-2:#131927;
+  --fg:#F0F4FF;
+  --muted:#8892A4;
+  --teal:#00C4B3;
+  --teal-dim:#009E91;
+  --coral:#F2724D;
+  --coral-dim:#D55230;
+  --amber:#F59E0B;
+  --hairline:rgba(255,255,255,0.07);
+  --border-solid:#222A3D;
+  --radius:12px;
+  --shadow-glow:0 0 60px rgba(0,196,179,0.18);
+  --shadow-card:0 20px 60px -20px rgba(2,5,12,0.6);
+  --gradient-brand:linear-gradient(135deg,var(--teal),var(--coral));
+  --font-head:'Syne',sans-serif;
+  --font-body:'Outfit',sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+  position:relative;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--font-head);letter-spacing:-0.02em;line-height:1.1;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;height:auto;}
+em{font-style:normal;}
+
+/* Film grain overlay */
+.grain::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Layout helpers */
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+.wrap-narrow{max-width:880px;margin:0 auto;padding:0 24px;}
+
+/* NAV */
+nav.site{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 40px;
+  background:rgba(7,11,20,0.8);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--hairline);
+  transition:box-shadow .25s ease;
+}
+nav.site.scrolled{box-shadow:0 8px 40px rgba(2,5,12,0.6);}
+nav.site .logo{font-family:var(--font-head);font-weight:800;font-size:18px;letter-spacing:-0.02em;}
+nav.site .logo span{color:var(--teal);}
+@media (max-width:640px){nav.site{padding:14px 20px;}}
+
+/* Buttons */
+.btn{
+  display:inline-block;font-weight:700;font-size:15px;
+  padding:14px 28px;border-radius:10px;cursor:pointer;
+  transition:all .2s ease;
+}
+.btn-sm{padding:10px 20px;font-size:14px;font-weight:600;border-radius:8px;}
+.btn-primary{background:var(--teal);color:var(--bg);box-shadow:var(--shadow-glow);}
+.btn-primary:hover{background:var(--teal-dim);transform:translateY(-1px);}
+.btn-ghost{color:var(--fg);border:1px solid var(--hairline);background:transparent;}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.05);}
+
+/* HERO */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:130px 24px 80px;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.5;}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,11,20,0.85) 0%,rgba(7,11,20,0.6) 50%,var(--bg) 100%);
+}
+.hero-glow{
+  position:absolute;top:-100px;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(0,196,179,0.14) 0%,rgba(242,114,77,0.08) 40%,transparent 70%);
+}
+.hero-inner{position:relative;z-index:10;max-width:1000px;display:flex;flex-direction:column;align-items:center;}
+
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,196,179,0.1);border:1px solid rgba(0,196,179,0.25);
+  border-radius:999px;padding:6px 16px;
+  font-size:12px;font-weight:500;color:var(--teal);letter-spacing:.04em;
+  margin-bottom:36px;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.hero-title{
+  font-weight:800;
+  font-size:clamp(42px,7vw,82px);
+  line-height:1.05;
+  max-width:900px;margin-bottom:28px;
+}
+h1.hero-title .teal{color:var(--teal);}
+.strike{position:relative;color:var(--muted);}
+.strike::after{
+  content:"";position:absolute;left:0;top:52%;width:100%;height:3px;
+  background:var(--amber);transform:rotate(-1.5deg);
+}
+
+.hero-sub{
+  font-size:clamp(16px,2.2vw,21px);color:var(--muted);
+  max-width:560px;line-height:1.6;font-weight:300;margin-bottom:48px;
+}
+.hero-sub strong{color:var(--fg);font-weight:500;}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:56px;}
+.hero-tagline{font-size:12px;color:var(--muted);}
+.hero-tagline .check{color:var(--teal);}
+
+.hero-stats{
+  display:flex;gap:48px;flex-wrap:wrap;justify-content:center;
+  padding-top:56px;margin-top:56px;
+  border-top:1px solid var(--hairline);
+  width:100%;max-width:560px;
+}
+.hero-stats .stat-num{font-family:var(--font-head);font-size:36px;font-weight:800;}
+.hero-stats .stat-num span{color:var(--teal);}
+.hero-stats .stat-label{font-size:12px;color:var(--muted);margin-top:2px;}
+
+/* Section helpers */
+section{padding:96px 0;position:relative;}
+.eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:20px;
+}
+h2.section-title{
+  font-weight:800;font-size:clamp(30px,4.5vw,52px);line-height:1.1;
+  margin-bottom:16px;
+}
+.section-sub{font-size:17px;color:var(--muted);max-width:520px;}
+
+/* TRUTH */
+.truth-grid{
+  display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;
+  margin-bottom:64px;
+}
+@media (max-width:900px){.truth-grid{grid-template-columns:1fr;}}
+.img-card{
+  position:relative;border-radius:18px;overflow:hidden;
+  border:1px solid var(--hairline);aspect-ratio:16/10;
+}
+.img-card img{width:100%;height:100%;object-fit:cover;}
+.img-card::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(7,11,20,0.7),transparent);
+}
+
+.three-col{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border-solid);border-radius:18px;overflow:hidden;
+}
+@media (max-width:900px){.three-col{grid-template-columns:1fr;}}
+.three-col > div{background:var(--bg-1);padding:40px;}
+.three-col .num{
+  font-family:var(--font-head);font-size:56px;font-weight:800;
+  line-height:1;color:var(--border-solid);margin-bottom:20px;
+}
+.three-col h3{font-size:21px;font-weight:700;margin-bottom:12px;}
+.three-col p{font-size:15px;color:var(--muted);line-height:1.6;}
+
+/* THE SHIFT */
+.shift{padding:80px 24px;text-align:center;}
+.shift-quote{
+  font-family:var(--font-head);font-weight:800;
+  font-size:clamp(24px,4.5vw,48px);line-height:1.15;margin-bottom:24px;
+}
+.text-gradient{
+  background:var(--gradient-brand);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.shift-sub{font-size:17px;color:var(--muted);max-width:460px;margin:0 auto;}
+
+/* WHAT'S INSIDE */
+.inside-header{margin-bottom:56px;}
+.inside-header h2{margin-bottom:16px;}
+
+.feature-img{
+  position:relative;border-radius:18px;overflow:hidden;
+  margin-bottom:20px;aspect-ratio:21/9;border:1px solid var(--hairline);
+}
+.feature-img img{width:100%;height:100%;object-fit:cover;}
+.feature-img::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(7,11,20,0.7) 70%,var(--bg) 100%);
+}
+.feature-img .caption{
+  position:absolute;left:24px;right:24px;bottom:24px;z-index:2;
+  font-family:var(--font-head);font-weight:700;font-size:24px;letter-spacing:-0.02em;
+  max-width:440px;
+}
+@media (min-width:768px){
+  .feature-img .caption{left:40px;bottom:40px;font-size:30px;}
+}
+.feature-img .caption .teal{color:var(--teal);}
+
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media (max-width:900px){.cards-3{grid-template-columns:1fr;}}
+.pillar{
+  position:relative;background:var(--bg-1);border:1px solid var(--hairline);
+  border-radius:18px;padding:36px;overflow:hidden;
+  transition:border-color .2s ease;
+}
+.pillar:hover{border-color:rgba(0,196,179,0.3);}
+.pillar::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+}
+.pillar.p-teal::before{background:linear-gradient(90deg,var(--teal),var(--teal-dim));}
+.pillar.p-coral::before{background:linear-gradient(90deg,var(--coral),var(--coral-dim));}
+.pillar.p-amber::before{background:linear-gradient(90deg,var(--amber),#E07B00);}
+.pillar .icon{font-size:32px;margin-bottom:20px;}
+.pillar h3{font-size:22px;font-weight:700;margin-bottom:10px;}
+.pillar p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.pillar ul{list-style:none;}
+.pillar li{
+  font-size:13px;color:var(--muted);padding:6px 0;
+  display:flex;gap:8px;border-bottom:1px solid var(--hairline);
+}
+.pillar li:last-child{border-bottom:0;}
+.pillar.p-teal li span{color:var(--teal);}
+.pillar.p-coral li span{color:var(--coral);}
+.pillar.p-amber li span{color:var(--amber);}
+
+/* MODULES */
+.modules-intro{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media (max-width:900px){.modules-grid{grid-template-columns:repeat(2,1fr);}}
+.module{
+  background:var(--bg-2);border:1px solid var(--hairline);border-radius:10px;
+  padding:16px;transition:all .2s ease;
+}
+.module:hover{border-color:rgba(0,196,179,0.25);background:var(--bg-1);}
+.module .lbl{font-size:10px;color:var(--teal);font-weight:600;letter-spacing:.15em;margin-bottom:6px;}
+.module .ttl{font-size:13px;font-weight:600;line-height:1.2;margin-bottom:4px;}
+.module .fmt{font-size:11px;color:var(--muted);}
+
+/* FOUNDER */
+.founder{
+  background:var(--bg-1);border:1px solid var(--hairline);border-radius:24px;
+  padding:56px;display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:center;
+  overflow:hidden;
+}
+@media (max-width:900px){.founder{grid-template-columns:1fr;gap:40px;padding:32px;}}
+.founder-portrait{
+  position:relative;width:100%;max-width:260px;aspect-ratio:1;
+  border-radius:18px;overflow:hidden;margin-bottom:20px;border:1px solid var(--hairline);
+}
+.founder-portrait img{width:100%;height:100%;object-fit:cover;}
+.founder-portrait::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(45deg,transparent,rgba(7,11,20,0.4));
+}
+.founder .role-title{font-family:var(--font-head);font-size:20px;font-weight:700;margin-bottom:4px;}
+.founder .role-sub{font-size:13px;color:var(--teal);}
+.founder-quote{
+  font-family:var(--font-head);font-weight:700;letter-spacing:-0.02em;
+  font-size:clamp(22px,3vw,32px);line-height:1.25;margin-bottom:24px;
+}
+.founder-quote em{color:var(--teal);}
+.founder-body{font-size:16px;color:var(--muted);line-height:1.75;}
+
+/* TESTIMONIALS */
+.testimonials h2{
+  text-align:center;
+  font-weight:800;font-size:clamp(28px,4vw,44px);
+  margin-bottom:48px;
+}
+.testimonial{
+  background:var(--bg-1);border:1px solid var(--hairline);border-radius:18px;padding:28px;
+}
+.stars{color:var(--amber);font-size:14px;letter-spacing:2px;margin-bottom:14px;}
+.testimonial p{font-size:15px;line-height:1.6;margin-bottom:20px;}
+.testimonial .meta{font-size:13px;color:var(--muted);}
+.testimonial .meta strong{color:var(--teal);display:block;margin-bottom:2px;font-weight:600;}
+
+/* PRICING */
+.pricing{text-align:center;max-width:880px;}
+.pricing > h2{font-weight:800;font-size:clamp(32px,5vw,52px);margin-bottom:12px;}
+.pricing > p.sub{font-size:17px;color:var(--muted);margin-bottom:56px;}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:left;}
+@media (max-width:768px){.price-grid{grid-template-columns:1fr;}}
+.plan{border-radius:18px;padding:36px;position:relative;}
+.plan.audiobook{background:var(--bg-1);border:1px solid var(--hairline);}
+.plan.community{background:var(--bg-2);border:1px solid var(--teal);box-shadow:var(--shadow-glow);}
+.plan .plan-tag{
+  font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;
+}
+.plan .badge{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--teal);color:var(--bg);font-size:12px;font-weight:700;
+  padding:4px 16px;border-radius:999px;letter-spacing:.1em;white-space:nowrap;
+}
+.plan .price{font-family:var(--font-head);font-size:54px;font-weight:800;line-height:1;margin-bottom:6px;}
+.plan .price .dollar{font-size:22px;font-weight:400;color:var(--muted);vertical-align:super;}
+.plan .price-note{font-size:14px;color:var(--muted);margin-bottom:28px;}
+.plan hr{height:1px;background:var(--border-solid);margin-bottom:24px;}
+.plan ul{list-style:none;margin-bottom:32px;}
+.plan li{
+  font-size:14px;color:var(--muted);padding:6px 0;
+  display:flex;gap:10px;border-bottom:1px solid var(--hairline);
+}
+.plan li:last-child{border-bottom:0;}
+.plan li .ck{color:var(--teal);font-weight:700;}
+.plan li.locked{color:rgba(136,146,164,0.4);}
+.plan li.locked .ck{color:var(--border-solid);}
+.plan .btn{display:block;width:100%;text-align:center;}
+.pricing-note{font-size:13px;color:var(--muted);text-align:center;margin-top:24px;}
+.pricing-note.bold{margin-top:40px;}
+.pricing-note strong{color:var(--fg);}
+
+/* FINAL CTA */
+.final{position:relative;padding:120px 24px;text-align:center;overflow:hidden;}
+.final-bg{position:absolute;inset:0;z-index:0;}
+.final-bg img{width:100%;height:100%;object-fit:cover;opacity:.4;}
+.final-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,var(--bg),rgba(7,11,20,0.8) 50%,rgba(7,11,20,0.6));
+}
+.final-glow{
+  position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:500px;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse,rgba(242,114,77,0.18) 0%,transparent 70%);
+}
+.final-inner{position:relative;z-index:10;}
+.final h2{font-weight:800;font-size:clamp(36px,6vw,68px);line-height:1.05;max-width:760px;margin:0 auto 24px;}
+.final p.lead{font-size:18px;color:var(--muted);max-width:460px;margin:0 auto 48px;line-height:1.6;}
+.final .promises{
+  display:flex;gap:24px;justify-content:center;flex-wrap:wrap;
+  margin-top:24px;font-size:13px;color:var(--muted);
+}
+.final .promises .ck{color:var(--teal);}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--hairline);padding:32px 40px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  font-size:13px;color:var(--muted);flex-wrap:wrap;
+}
+footer .brand{font-family:var(--font-head);font-weight:800;font-size:15px;color:var(--fg);}
+footer .brand span{color:var(--teal);}
+
+/* Fade-up scroll reveal */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body class="grain">
+
+<!-- ============= NAV ============= -->
+<nav class="site" id="site-nav">
+  <div class="logo">Sober<span>Talk</span>20s</div>
+  <a href="#pricing" class="btn btn-primary btn-sm">Get started →</a>
+</nav>
+
+<!-- ============= HERO ============= -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="img/hero-dawn.jpg" alt="Young woman walking across a quiet city street at dawn" />
+  </div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <div class="pill"><span class="dot"></span> Now open · Early bird pricing active</div>
+
+    <h1 class="hero-title">
+      The habits you build<br>
+      in your <em class="teal">20s</em><br>
+      follow you into your <span class="strike">50s</span>
+    </h1>
+
+    <p class="hero-sub">
+      SoberTalk20s is the course, community, and AI partner for people who are
+      <strong>serious about changing their relationship with alcohol</strong>
+      — before it becomes 30 years of damage.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#pricing" class="btn btn-primary">Get the audiobook + agent</a>
+      <a href="#pricing" class="btn btn-ghost">Join the community</a>
+    </div>
+
+    <p class="hero-tagline"><span class="check">✓</span> No pressure. No AA language. No judgment.</p>
+
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">12<span>+</span></div>
+        <div class="stat-label">Course modules</div>
+      </div>
+      <div>
+        <div class="stat-num">1</div>
+        <div class="stat-label">AI agent that learns you</div>
+      </div>
+      <div>
+        <div class="stat-num">1<span>k</span></div>
+        <div class="stat-label">People like you, waiting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TRUTH ============= -->
+<section class="fade-up">
+  <div class="wrap">
+    <div class="truth-grid">
+      <div>
+        <p class="eyebrow">The reality</p>
+        <h2 class="section-title">You already know<br>something is wrong.</h2>
+      </div>
+      <div class="img-card">
+        <img src="img/truth-bar.jpg" alt="Empty wine glasses and a tipped beer bottle on a dark bar at 2am" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="three-col">
+      <div>
+        <div class="num">01</div>
+        <h3>Your 20s are when it gets coded in</h3>
+        <p>New job. New city. Every win celebrated the same way. It feels normal because everyone around you is doing it. That is exactly the problem.</p>
+      </div>
+      <div>
+        <div class="num">02</div>
+        <h3>Being sober in your 20s feels impossible</h3>
+        <p>Your entire social life runs on alcohol. Dates. Work events. Weekends. You are not broken. The structure is broken. But you are the one who pays for it.</p>
+      </div>
+      <div>
+        <div class="num">03</div>
+        <h3>Nobody built anything real for you</h3>
+        <p>AA skews older. Sobriety apps are trackers. Reddit is a forum. You need a course that teaches you how, a community that gets it, and an AI partner that actually shows up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= THE SHIFT ============= -->
+<section class="fade-up shift">
+  <div class="wrap-narrow">
+    <p class="eyebrow">The shift</p>
+    <p class="shift-quote">
+      "I started drinking in my 20s. I am still
+      <em class="text-gradient">fighting those habits</em>
+      30 years later. You don't have to find that out the hard way."
+    </p>
+    <p class="shift-sub">That is why SoberTalk20s exists. Built by someone who lived it — not someone who read about it.</p>
+  </div>
+</section>
+
+<!-- ============= WHAT'S INSIDE ============= -->
+<section id="inside" class="fade-up">
+  <div class="wrap">
+    <div class="inside-header">
+      <p class="eyebrow">What's inside</p>
+      <h2 class="section-title">Everything in one place.<br>Nothing you don't need.</h2>
+      <p class="section-sub">Course, community, and AI partner &mdash; built to work together.</p>
+    </div>
+
+    <div class="feature-img">
+      <img src="img/community-rooftop.jpg" alt="Three young friends laughing together on a rooftop at twilight, holding mugs and sparkling water" loading="lazy" />
+      <p class="caption">Friday nights, rebuilt. <span class="teal">Real people. Real fun.</span></p>
+    </div>
+
+    <div class="cards-3">
+      <div class="pillar p-teal">
+        <div class="icon">🎯</div>
+        <h3>The Course</h3>
+        <p>12 video modules. Your face. Your story. Covering everything nobody tells you about being sober in your 20s.</p>
+        <ul>
+          <li><span>→</span>Social survival scripts — word for word</li>
+          <li><span>→</span>Sober identity — who you are now</li>
+          <li><span>→</span>Dating sober + pre-date audio</li>
+          <li><span>→</span>Family conversations, fully scripted</li>
+          <li><span>→</span>The 12-month sobriety tracker</li>
+        </ul>
+      </div>
+      <div class="pillar p-coral">
+        <div class="icon">🤝</div>
+        <h3>The Community</h3>
+        <p>Real people, real Fridays. People who are living exactly what you are living. Not strangers. Your people.</p>
+        <ul>
+          <li><span>→</span>Weekly live session — every Wednesday</li>
+          <li><span>→</span>Sober buddy matching system</li>
+          <li><span>→</span>Friday wins thread — celebrate everything</li>
+          <li><span>→</span>Monthly deep-dive call</li>
+          <li><span>→</span>Direct messaging with real humans</li>
+        </ul>
+      </div>
+      <div class="pillar p-amber">
+        <div class="icon">⚡</div>
+        <h3>The Sobriety Agent</h3>
+        <p>Powered by Hermes agent (Nous Research). Not a tracker. Not a chatbot. A partner that learns who you are and meets you where you are.</p>
+        <ul>
+          <li><span>→</span>Learns your triggers, patterns, and wins — adapts to you</li>
+          <li><span>→</span>Proactive check-ins before high-risk moments (Friday nights, work events, dates)</li>
+          <li><span>→</span>Real-time scripts and grounding audio when you need them</li>
+          <li><span>→</span>Remembers your journey — celebrates milestones, catches slips with zero judgment</li>
+          <li><span>→</span>Available 24/7, inside the community or as a standalone companion</li>
+        </ul>
+        <p style="margin-top:20px; font-size:13px; color:var(--amber); font-weight:600; line-height:1.4;">No dashboard. No clicking around. Just an agent that has your back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FOUNDER ============= -->
+<section class="fade-up">
+  <div class="wrap">
+    <div class="founder">
+      <div>
+        <div class="founder-portrait">
+          <img src="img/founder-portrait.jpg" alt="The founder of SoberTalk20s, a man in his early 50s by a window at night" loading="lazy" />
+        </div>
+        <div class="role-title">The Founder</div>
+        <div class="role-sub">SoberTalk20s</div>
+      </div>
+      <div>
+        <p class="founder-quote">
+          I started drinking in my 20s. Every celebration, every win, every new beginning —
+          <em>all of it with alcohol</em>. It felt normal. It was normal. That was the problem.
+        </p>
+        <p class="founder-body">
+          Thirty years later I am still navigating the habits that got coded into me before I knew what was happening. I built SoberTalk20s because this community did not exist when I needed it — and I refuse to let another 20-something reach 50 saying the same thing.
+          <br><br>
+          This is not a product to me. This is the thing I wish someone had handed me at 22.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TESTIMONIALS ============= -->
+<section class="fade-up testimonials" style="padding-top:0;">
+  <div class="wrap">
+    <h2>What happens when people<br>stop drinking alone</h2>
+    <div class="cards-3">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>The social scripts from Module 02 changed everything. I went to my first work event sober and actually enjoyed it. I had the scripts on my phone the whole time.</p>
+        <div class="meta"><strong>Amara, 24</strong> &middot; London &middot; 4 months sober</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>I thought sober in my 20s meant no social life. The blueprint module completely rebuilt how I think about Friday nights. I'm busier and happier than I was when I was drinking.</p>
+        <div class="meta"><strong>Jordan, 27</strong> &middot; New York &middot; 8 months sober</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>The late night audio is the thing. I used to spiral on Saturday nights. Now I put it on and it grounds me within minutes. Nothing else has ever done that.</p>
+        <div class="meta"><strong>Priya, 23</strong> &middot; Sydney &middot; 6 months sober</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= PRICING ============= -->
+<section id="pricing" class="fade-up">
+  <div class="wrap pricing">
+    <p class="eyebrow">Simple pricing</p>
+    <h2>Simple pricing. Two ways in.</h2>
+    <p class="sub">No tricks. No upsells inside. Pick what fits you.</p>
+
+    <div class="price-grid">
+      <!-- AUDIOBOOK + AGENT -->
+      <div class="plan audiobook">
+        <div class="plan-tag">Audiobook + Sobriety Agent</div>
+        <div class="price"><span class="dollar">$</span>129</div>
+        <div class="price-note">one time</div>
+        <hr>
+        <ul>
+          <li><span class="ck">✓</span>Full 12‑module audiobook (listen anywhere)</li>
+          <li><span class="ck">✓</span>Your personal Sobriety Agent &mdash; 24/7, learns you, proactive</li>
+          <li><span class="ck">✓</span>All scripts, audio tools, and trackers</li>
+          <li><span class="ck">✓</span>Agent updates included</li>
+          <li class="locked"><span class="ck">○</span>Community access not included</li>
+        </ul>
+        <a href="#pricing" class="btn btn-ghost">Get the audiobook + agent →</a>
+      </div>
+
+      <!-- COMMUNITY -->
+      <div class="plan community">
+        <div class="badge">EVERYTHING INCLUDED</div>
+        <div class="plan-tag">SoberTalk20s Community</div>
+        <div class="price"><span class="dollar">$</span>49</div>
+        <div class="price-note">per month &middot; cancel anytime</div>
+        <hr>
+        <ul>
+          
+          <li><span class="ck">✓</span>Weekly live session &mdash; every Wednesday</li>
+          <li><span class="ck">✓</span>Sober buddy matching system</li>
+          <li><span class="ck">✓</span>Friday wins thread</li>
+          <li><span class="ck">✓</span>Monthly deep-dive call</li>
+          <li><span class="ck">✓</span>Direct messaging with real humans</li>
+          <li><span class="ck">✓</span>All future updates &mdash; free, always</li>
+        </ul>
+        <a href="#pricing" class="btn btn-primary">Join the Community →</a>
+      </div>
+    </div>
+
+    <p class="pricing-note">💡 One therapy session costs $200. The full community costs $49 &mdash; and gives you the course, the people, and the AI agent. Every month.</p>
+    <p class="pricing-note bold"><strong>Early bird pricing active.</strong> Price increases at the end of launch period. Lock it in now.</p>
+  </div>
+</section>
+
+<!-- ============= FINAL CTA ============= -->
+<section class="fade-up final">
+  <div class="final-bg">
+    <img src="img/final-sunrise.jpg" alt="Sunrise breaking over a foggy city skyline" loading="lazy" />
+  </div>
+  <div class="final-glow"></div>
+
+  <div class="final-inner">
+    <p class="eyebrow">Your move</p>
+    <h2>The pattern changes<br>now or it changes<br>in 30 years.</h2>
+    <p class="lead">The people who are already inside are changing their lives. You have nothing to lose and a decade of damage to avoid.</p>
+    
+    <div class="hero-ctas" style="margin-bottom:32px;">
+      <a href="#pricing" class="btn btn-primary">Get the audiobook + agent ($129)</a>
+      <a href="#pricing" class="btn btn-ghost">Join the community ($49/mo)</a>
+    </div>
+
+    <div class="promises">
+      <span><span class="ck">✓</span> Cancel anytime</span>
+      <span><span class="ck">✓</span> No AA language</span>
+      <span><span class="ck">✓</span> No judgment</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FOOTER ============= -->
+<footer>
+  <div class="brand">Sober<span>Talk</span>20s</div>
+  <div>© QUIETORE<br>PRECISION IN THE QUIET</div>
+</footer>
+
+<script>
+  // Nav scroll shadow
+  var nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // Fade-up reveal
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.fade-up').forEach(function(el){ io.observe(el); });
+</script>
+
+</body>
+</html>
