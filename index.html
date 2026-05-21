@@ -1,310 +1,663 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talks With Toqqx — Conversations That Matter</title>
-    <style>
-        :root {
-            --bg-color: #050505;
-            --surface-color: #111111;
-            --primary-purple: #8B5CF6;
-            --primary-hover: #7C3AED;
-            --text-main: #FFFFFF;
-            --text-muted: #A1A1AA;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --glow-color: rgba(139, 92, 246, 0.2);
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Talks With Toqqx — Audiobooks That Talk Back</title>
+<meta name="description" content="Talks With Toqqx pairs professionally narrated audiobooks with a dedicated Hermes-powered AI agent designed to help you think deeper and build real momentum." />
+<style>
+  :root{
+    --bg:#1a181e;
+    --bg-deep:#0d0a14;
+    --hero:#241754;
+    --card:#2a2435;
+    --primary:#543487;
+    --primary-hover:#6f529c;
+    --lavender:#8668a8;
+    --lavender-soft:#ac9cd1;
+    --glow:#c9b4ea;
+    --fg:#e7e2eb;
+    --body:#c9c5cf;
+    --muted:#9a999e;
+    --meta:#58565c;
+    --border:#2e2a3a;
+    --gradient-accent:linear-gradient(135deg,#543487,#c9b4ea);
+    --gradient-hero:radial-gradient(ellipse at 30% 20%,rgba(111,82,156,.35),transparent 60%),linear-gradient(180deg,#241754,#1a181e);
+    --shadow-glow:0 20px 60px -20px rgba(84,52,135,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    background:var(--bg);color:var(--fg);
+    -webkit-font-smoothing:antialiased;line-height:1.6;
+  }
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1120px;margin:0 auto;padding:0 24px}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* nav */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(26,24,30,.75);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1120px;margin:0 auto}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.02em}
+  .logo-mark{width:28px;height:28px;border-radius:8px;background:var(--gradient-accent);box-shadow:var(--shadow-glow)}
+  .nav-links{display:flex;gap:32px;font-size:14px;color:var(--muted)}
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:720px){.nav-links{display:none}}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-family);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  /* hero image section */
+  .hero-section {
+    padding: 64px 24px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-banner-wrapper {
+    max-width: 1120px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-banner {
+    position: relative;
+    width: 100%;
+    height: clamp(320px, 100vh, 600px);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-glow);
+  }
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-caption {
+    position: absolute;
+    bottom: 36px;
+    right: 36px;
+    color: #fff;
+    font-size: clamp(24px, 4.5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    line-height: 1.1;
+  }
+  @media(max-width:600px){
+    .hero-caption {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
 
-        .glow {
-            position: fixed;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            filter: blur(100px);
-        }
-        .glow-1 { top: -300px; right: -300px; }
-        .glow-2 { bottom: -300px; left: -300px; }
+  /* tagline section below hero */
+  .tagline-section {
+    padding: 80px 24px 120px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(111,82,156,.18), transparent 70%), var(--bg);
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .tagline-main {
+    font-size: clamp(36px, 5.5vw, 68px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    max-width: 960px;
+    margin: 0 auto 32px;
+  }
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero-content .lead {
+    font-size: clamp(17px, 2.5vw, 20px);
+    line-height: 1.65;
+    color: #d5d1da;
+    margin-bottom: 24px;
+  }
+  .hero-content .sub {
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:999px;
+    border:1px solid var(--border);background:rgba(13,10,20,.4);
+    font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--glow);
+    margin-bottom: 24px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--glow);box-shadow:0 0 12px var(--glow)}
+  .grad{background:var(--gradient-accent);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .cta-row{margin-top:40px;display:flex;flex-wrap:wrap;gap:16px}
+  .cta-row.centered{justify-content:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 26px;border-radius:999px;font-size:14px;font-weight:500;
+    transition:transform .15s ease, opacity .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--gradient-accent);color:#fff;box-shadow:var(--shadow-glow)}
+  .btn-primary:hover{opacity:.92;transform:translateY(-1px)}
+  .btn-ghost{border:1px solid var(--border);background:rgba(13,10,20,.35);color:var(--fg)}
+  .btn-ghost:hover{background:rgba(13,10,20,.6)}
+  .glow-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+  .glow-1{left:-120px;top:40%;width:480px;height:480px;background:radial-gradient(circle,var(--glow),transparent 65%);opacity:.35}
+  .glow-2{right:-120px;top:-80px;width:420px;height:420px;background:radial-gradient(circle,var(--primary),transparent 70%);opacity:.3}
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  /* sections */
+  section{position:relative}
+  .section{padding:96px 0}
+  .section-deep{background:var(--bg-deep);border-block:1px solid var(--border)}
+  .kicker{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--glow)}
+  h2{font-size:clamp(32px,4.2vw,52px);font-weight:600;letter-spacing:-.015em;line-height:1.1;margin-top:14px}
+  .section-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:96px;align-items:start}
+  @media(max-width:860px){.section-grid{grid-template-columns:1fr;gap:48px}}
 
-        nav { padding: 2.5rem 0; display: flex; justify-content: center; align-items: center; }
-        .logo img { height: 40px; filter: drop-shadow(0 0 12px var(--primary-purple)); }
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:560px){.feature-grid{grid-template-columns:1fr}}
+  .feature{
+    position:relative;overflow:hidden;
+    padding:28px;border-radius:18px;
+    background:rgba(42,36,53,.6);border:1px solid var(--border);
+    transition:border-color .2s,background .2s;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .feature:hover{border-color:var(--lavender);background:var(--card)}
+  .feature-dot{width:36px;height:36px;border-radius:10px;background:var(--gradient-accent);box-shadow:var(--shadow-glow)}
+  .feature-content h5 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--glow);
+    margin-bottom: 6px;
+  }
+  .feature-content p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--body);
+    line-height: 1.5;
+    margin-top: 0;
+  }
 
-        /* Horizontal Hero Layout */
-        .hero { 
-            padding: 4rem 0 8rem; 
-            display: flex; 
-            flex-direction: row;
-            align-items: center; 
-            gap: 4rem;
-            text-align: left;
-        }
-        .hero-text { flex: 1.2; }
-        .hero-image-container { flex: 0.8; display: flex; justify-content: center; }
-        .hero-image {
-            width: 100%;
-            max-width: 420px;
-            height: auto;
-            filter: drop-shadow(0 0 30px var(--glow-color));
-            border-radius: 24px;
-        }
+  /* titles */
+  .titles{display:flex;flex-direction:column;gap:32px;margin-top:56px}
+  .title-card{
+    display:block;
+    position:relative;overflow:hidden;
+    padding:48px;border-radius:24px;
+    border:1px solid var(--border);background:rgba(36,23,84,.18);
+    transition:border-color .2s;
+  }
+  @media(max-width:720px){.title-card{padding:32px}}
+  .title-card:hover{border-color:var(--lavender)}
+  .title-card::before{
+    content:"";position:absolute;right:-120px;top:-120px;width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,var(--glow),transparent 70%);opacity:.15;filter:blur(40px);
+    transition:opacity .3s;
+  }
+  .title-card:hover::before{opacity:.3}
+  .title-grid {
+    display: grid;
+    grid-template-columns: 240px 1.2fr 1.6fr;
+    gap: 48px;
+    position: relative;
+    align-items: start;
+  }
+  @media(max-width:1024px){
+    .title-grid {
+      grid-template-columns: 180px 1fr;
+      gap: 36px;
+    }
+    .title-grid .body-copy {
+      grid-column: span 2;
+    }
+  }
+  @media(max-width:768px){
+    .title-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .title-grid .body-copy {
+      grid-column: span 1;
+    }
+    .title-image-wrapper {
+      max-width: 240px;
+      margin: 0 auto;
+    }
+  }
+  .title-image-wrapper {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-deep);
+    aspect-ratio: 1/1;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .title-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .title-card:hover .title-image {
+    transform: scale(1.04);
+  }
+  .title-meta{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .title-meta .num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--glow)}
+  .title-meta .rule{height:1px;width:32px;background:var(--border)}
+  .title-card h3{font-size:clamp(28px,3vw,40px);font-weight:600;letter-spacing:-.01em;margin-top:24px}
+  .tagline{margin-top:10px;font-style:italic;color:var(--glow);font-size:14px}
+  .includes{
+    margin-top:32px;padding:24px;border-radius:16px;
+    background:rgba(42,36,53,.55);border:1px solid var(--border);
+  }
+  .includes h4{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .includes ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:12px}
+  .includes li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--fg)}
+  .check{
+    flex-shrink:0;width:20px;height:20px;border-radius:50%;
+    background:var(--gradient-accent);display:grid;place-items:center;
+    color:#fff;font-size:12px;font-weight:700;margin-top:1px;
+  }
+  .body-copy p{color:var(--body);margin-bottom:18px;line-height:1.7}
+  .body-copy p:first-child{font-size:18px;color:var(--fg)}
+  .body-copy p:last-child{margin-bottom:0}
 
-        .eyebrow {
-            font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em;
-            color: var(--primary-purple); margin-bottom: 2rem; display: inline-block;
-            background: rgba(139, 92, 246, 0.1); padding: 0.5rem 1.5rem; border-radius: 999px; border: 1px solid rgba(139, 92, 246, 0.2);
-        }
+  /* Ecosystem Pillars Section */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  @media(max-width: 960px) {
+    .pillars-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+  .pillar-card {
+    background: rgba(42, 36, 53, 0.35);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    transition: transform 0.25s, border-color 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .pillar-card:hover {
+    border-color: var(--lavender);
+    background: rgba(42, 36, 53, 0.65);
+    transform: translateY(-4px);
+  }
+  .pillar-card.highlight {
+    border: 1px solid var(--lavender);
+    background: rgba(84, 52, 135, 0.12);
+  }
+  .pillar-card.highlight:hover {
+    border-color: var(--glow);
+    background: rgba(84, 52, 135, 0.22);
+  }
+  .pillar-icon {
+    font-size: 32px;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .pillar-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .pillar-tagline {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--glow);
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .pillar-body p {
+    font-size: 14px;
+    color: var(--body);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .pillar-body p:last-child {
+    margin-bottom: 0;
+  }
+  .pillar-body strong {
+    color: var(--fg);
+  }
 
-        h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 2rem; letter-spacing: -0.02em; }
-        h1 em { font-style: italic; color: var(--primary-purple); }
-        h1 span { background: linear-gradient(to bottom right, #FFFFFF, var(--primary-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  /* closing */
+  .closing{background:var(--gradient-hero);text-align:center;overflow:hidden;border-top:1px solid var(--border)}
+  .closing-inner{padding:120px 24px;max-width:880px;margin:0 auto;position:relative}
+  .closing h2{margin-top:24px}
+  .closing .lead{margin-left:auto;margin-right:auto;text-align:center}
+  .closing .sub{margin-left:auto;margin-right:auto;text-align:center}
+  .closing-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 65%);opacity:.22;filter:blur(80px);pointer-events:none}
 
-        .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3.5rem; }
-
-        .cta-btn {
-            display: inline-block; background: var(--primary-purple); color: white; padding: 1.2rem 2.8rem;
-            border-radius: 14px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3); border: none; cursor: pointer;
-        }
-        .cta-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
-
-        section { padding: 6rem 0; border-top: 1px solid var(--border-color); }
-        .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--primary-purple); margin-bottom: 2.5rem; font-weight: 700; }
-        h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 2.5rem; line-height: 1.2; font-weight: 800; }
-        h2 em { font-style: italic; color: var(--primary-purple); }
-        section p { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 800px; }
-
-        .not-list { list-style: none; margin: 4rem 0; display: grid; gap: 1.5rem; }
-        .not-item {
-            background: var(--surface-color); padding: 2.5rem; border-radius: 20px; border: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
-        }
-        .not-item:hover { border-color: var(--primary-purple); }
-        .not-item strong { display: block; font-size: 1.4rem; color: var(--text-main); margin-bottom: 0.5rem; }
-        .not-item span { color: var(--text-muted); font-size: 1.1rem; }
-
-        .parts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
-        .part { background: var(--surface-color); padding: 3rem; border-radius: 24px; border: 1px solid var(--border-color); }
-        .part-icon { font-size: 2.5rem; color: var(--primary-purple); margin-bottom: 1.5rem; display: block; }
-        .part h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
-        .part p { font-size: 1rem; margin-bottom: 0; }
-
-        .sessions { display: grid; gap: 3rem; margin-top: 4rem; }
-        .session {
-            background: linear-gradient(145deg, var(--surface-color) 0%, #0a0a0a 100%);
-            border-radius: 32px; border: 1px solid var(--border-color);
-            position: relative; transition: all 0.4s ease; overflow: hidden;
-            display: flex; flex-direction: row; align-items: stretch;
-        }
-        .session:hover { border-color: var(--primary-purple); transform: translateY(-4px); }
-        
-        .session-image-container {
-            flex: 0 0 380px;
-            background: rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem;
-            border-right: 1px solid var(--border-color);
-        }
-        .session-image-item {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-        }
-
-        .session-content { padding: 4rem; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .session-num { font-size: 0.8rem; font-weight: 700; color: var(--primary-purple); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; display: block; }
-        .session h3 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.1; }
-        .session .tagline { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2rem; display: block; font-style: italic; }
-        .session-points { list-style: none; margin-bottom: 2.5rem; }
-        .session-points li { color: var(--text-muted); font-size: 1rem; padding: 0.4rem 0 0.4rem 1.5rem; position: relative; }
-        .session-points li::before { content: '→'; position: absolute; left: 0; color: var(--primary-purple); }
-
-        .session-btn {
-            display: inline-flex; align-items: center; gap: 12px; font-weight: 700; text-decoration: none;
-            color: var(--text-main); font-size: 1.1rem; transition: gap 0.3s ease;
-        }
-        .session-btn:hover { gap: 20px; color: var(--primary-purple); }
-
-        .quote-block {
-            margin: 5rem 0; padding: 4rem; background: rgba(139, 92, 246, 0.05); border-radius: 32px;
-            border-left: 6px solid var(--primary-purple);
-        }
-        .quote-block p { font-size: 2rem; font-style: italic; color: var(--text-main); line-height: 1.4; margin: 0; font-weight: 300; }
-
-        .final-cta { padding: 10rem 0; text-align: center; border-top: 1px solid var(--border-color); }
-        .final-cta h2 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1.5rem; }
-        .final-cta p { font-size: 1.25rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 3.5rem; }
-
-        footer { padding: 5rem 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 1rem; letter-spacing: 0.05em; }
-
-        @media (max-width: 900px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding: 4rem 0; }
-            .hero-sub { margin-left: auto; margin-right: auto; }
-            .session { flex-direction: column; }
-            .session-image-container {
-                flex: 0 0 auto;
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                padding: 3rem;
-            }
-            .session-image-item { max-height: 300px; }
-            .session-content { padding: 3rem; }
-        }
-
-        @media (max-width: 600px) {
-            .session-content { padding: 2rem; }
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2.25rem; }
-            .session h3 { font-size: 1.8rem; }
-            .quote-block p { font-size: 1.5rem; }
-        }
-    </style>
+  /* footer */
+  footer {
+    background: var(--bg-deep);
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 64px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .footer-title {
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--fg);
+    font-size: 14px;
+  }
+  .footer-sub {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+</style>
 </head>
 <body>
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
 
-    <div class="container">
-        <nav>
-            <a href="index.html" class="logo">
-                <img src="talks_with_toqqx_purple_logo.png" alt="TOQQX Logo">
-            </a>
-        </nav>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo"><span class="logo-mark"></span>Talks With Toqqx</a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#titles">Titles</a>
+      <a href="#ecosystem-pillars">Ecosystem</a>
+      <a href="#depth">Philosophy</a>
+    </nav>
+  </div>
+</header>
 
-        <header class="hero">
-            <div class="hero-text">
-                <div class="eyebrow">Talks With Toqqx</div>
-                <h1>Because some conversations are too important to have <em>alone.</em></h1>
-                <div class="hero-sub">
-                    <p>Divorce. A business that isn't working. Ageing parents. A career that looks right on paper — but doesn't feel it.</p>
-                    <p style="margin-top: 1.5rem;">Life and work don't happen separately. Neither do these conversations.</p>
-                </div>
-                <a href="#sessions" class="cta-btn">Start your first conversation</a>
-            </div>
-            <div class="hero-image-container">
-                <img src="toqqx_hero.png" alt="Talks With Toqqx Hero" class="hero-image">
-            </div>
-        </header>
-
-        <section id="what-it-is">
-            <div class="section-label">What this is</div>
-            <h2>Not a podcast. Not a course. <em>A conversation you step into.</em></h2>
-            
-            <div class="not-list">
-                <div class="not-item">
-                    <strong>Not a podcast</strong>
-                    <span>No episodes you half-listen to and forget.</span>
-                </div>
-                <div class="not-item">
-                    <strong>Not a course</strong>
-                    <span>No modules. No progress bars judging you.</span>
-                </div>
-                <div class="not-item">
-                    <strong>Human-centered</strong>
-                    <span>Not someone talking at you from a distance as if they've figured everything out.</span>
-                </div>
-            </div>
-
-            <p>It's something you can follow — until your own thinking starts to settle into place.</p>
-        </section>
-
-        <section id="how-it-works">
-            <div class="section-label">How it works</div>
-            <h2>Every session comes in two parts.</h2>
-            <p>One for when you're moving. One for when something lands harder than expected.</p>
-
-            <div class="parts-grid">
-                <div class="part">
-                    <span class="part-icon">🎙️</span>
-                    <h3>The Conversation</h3>
-                    <p>A real voice. Calm, direct, human. Listen while driving or staring at the ceiling at 2am.</p>
-                </div>
-                <div class="part">
-                    <span class="part-icon">📄</span>
-                    <h3>The Companion</h3>
-                    <p>A PDF for the parts that land harder. Highlight what matters. Leave a note that only makes sense to you later.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="sessions">
-            <div class="section-label">Start with what feels familiar</div>
-
-            <div class="sessions">
-                <div class="session">
-                    <div class="session-image-container">
-                        <img src="brain_loop_card_image.png" alt="Brain Loop Marketing" class="session-image-item">
-                    </div>
-                    <div class="session-content">
-                        <span class="session-num">Session 01</span>
-                        <h3>The Brain Loop Marketing Method</h3>
-                        <span class="tagline">Stop chasing customers — understand why they come to you.</span>
-                        <ul class="session-points">
-                            <li>Why most messaging gets ignored, quickly</li>
-                            <li>What's actually happening in your customer's head</li>
-                            <li>How to build something people move toward — without pressure</li>
-                        </ul>
-                        <a href="brain_loop_landing_page.html" class="session-btn">Start this conversation &nbsp; →</a>
-                    </div>
-                </div>
-
-                <div class="session">
-                    <div class="session-image-container">
-                        <img src="unbecoming_you_card_image.png" alt="Unbecoming You" class="session-image-item">
-                    </div>
-                    <div class="session-content">
-                        <span class="session-num">Session 02</span>
-                        <h3>Unbecoming You</h3>
-                        <span class="tagline">When you can't tell if you're stuck — or changing.</span>
-                        <ul class="session-points">
-                            <li>Why overthinking isn't the real problem</li>
-                            <li>How to carry things without it taking over everything</li>
-                            <li>What this phase might actually be — even if it doesn't feel great</li>
-                        </ul>
-                        <a href="unbecoming_you_landing_page.html" class="session-btn">Start this conversation &nbsp; →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="why">
-            <div class="section-label">Why this works</div>
-            <h2>There's no performance here.</h2>
-            <div class="quote-block">
-                <p>"It just starts where you are — and stays there long enough for something to shift."</p>
-            </div>
-            <p>No one is trying to sound impressive. No "let me simplify this for you" energy.</p>
-        </section>
-
-        <div class="final-cta">
-            <h2>You don't need more advice.</h2>
-            <p>You need a way to think clearly while you're in the middle of it.</p>
-            <a href="#sessions" class="cta-btn">Browse the Conversations</a>
-        </div>
-
-        <footer>
-            <p>&copy; 2024 Talks With Toqqx. All rights reserved.</p>
-        </footer>
+<section class="hero-section">
+  <span class="glow-blob glow-1"></span>
+  <span class="glow-blob glow-2"></span>
+  <div class="hero-banner-wrapper">
+    <div class="hero-banner">
+      <img src="img/toqqx-hero.png" alt="Talks With Toqqx" class="hero-img">
+      <div class="hero-caption">Talks With Toqqx</div>
     </div>
+  </div>
+</section>
+
+<section class="tagline-section">
+  <div class="container">
+    <h2 class="tagline-main">"Audiobooks That Talk Back"</h2>
+    <div class="hero-content">
+      <p class="lead">Talks With Toqqx transforms audiobooks into interactive experiences. Each title pairs a professionally narrated audiobook with a dedicated Hermes-powered Toqqx agent designed to help you think deeper, apply the ideas to your own life, and build real momentum from what you learn.</p>
+      <p class="sub">Instead of passively consuming information, you engage with it. The result is something closer to a guided thinking system than a traditional audiobook.</p>
+      <div class="cta-row centered">
+        <a href="#titles" class="btn btn-primary">Browse featured titles →</a>
+        <a href="#how" class="btn btn-ghost">How it works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="section section-deep">
+  <div class="container">
+    <div class="section-grid">
+      <div>
+        <p class="kicker">How It Works</p>
+        <h2>Every title is its own ecosystem.</h2>
+        <p class="sub" style="margin-top:24px">Each Talks With Toqqx title stands on its own, with its own audience and direction. For listeners who want deeper collaboration, optional member communities are available for each individual title through Whop.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <h5>The Audiobook</h5>
+            <p>The complete audiobook to listen to when alone, walking, commuting, or at any time you are alone.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <h5>Companion PDF</h5>
+            <p>A Companion PDF that you can read or make notes on. Highlight the parts that really stick.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <h5>Conversational Agent</h5>
+            <p>Long-term conversational agent to be your partner in your journey—a teacher, sidekick, and friend.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <h5>Member Community</h5>
+            <p>A community around the title where you can interact and share/learn from others. Wins, Fails, updates, livestreams, and a lot more.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="titles" class="section">
+  <div class="container">
+    <p class="kicker">Featured Titles</p>
+    <h2>Choose the title that meets you where you are.</h2>
+
+    <div class="titles">
+
+      <!-- Title 1: Brain Loop Marketing -->
+      <a href="/brain-loop/" class="title-card">
+        <div class="title-grid">
+          <div class="title-image-wrapper">
+            <img src="img/brain-loop.png" alt="Brain Loop Marketing Cover" class="title-image">
+          </div>
+          <div>
+            <div class="title-meta"><span class="num">01</span><span class="rule"></span><span>Featured Title</span></div>
+            <h3>Brain Loop Marketing</h3>
+            <p class="tagline">The Quiet Mechanics of Marketing That Compounds</p>
+            <div class="includes">
+              <h4>Includes</h4>
+              <ul>
+                <li><span class="check">✓</span>Full audiobook</li>
+                <li><span class="check">✓</span>Dedicated Toqqx agent</li>
+                <li><span class="check">✓</span>Optional member community</li>
+              </ul>
+            </div>
+          </div>
+          <div class="body-copy">
+            <p>Brain Loop Marketing explores how powerful marketing creates psychological tension by intentionally opening curiosity gaps that the mind feels compelled to close.</p>
+            <p>When people encounter an unresolved idea, unanswered question, or incomplete narrative, the brain naturally seeks resolution. That tension becomes an internal “itch” — one that quietly pulls attention back again and again until the loop is closed.</p>
+            <p>The audiobook breaks down how to ethically engineer these loops into branding, offers, funnels, storytelling, positioning, and audience retention so customers begin actively pursuing the solution themselves.</p>
+            <p>The companion Toqqx agent helps you dissect campaigns, pressure-test ideas, refine offers, and build compounding marketing systems tailored to your own business.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Title 2: Unbecoming You -->
+      <a href="/unbecoming-you/" class="title-card">
+        <div class="title-grid">
+          <div class="title-image-wrapper">
+            <img src="img/unbecoming-you.png" alt="Unbecoming You Cover" class="title-image">
+          </div>
+          <div>
+            <div class="title-meta"><span class="num">02</span><span class="rule"></span><span>Featured Title</span></div>
+            <h3>Unbecoming You</h3>
+            <p class="tagline">Shedding the Identity That Was Never Yours</p>
+            <div class="includes">
+              <h4>Includes</h4>
+              <ul>
+                <li><span class="check">✓</span>Full audiobook</li>
+                <li><span class="check">✓</span>Dedicated Toqqx agent</li>
+                <li><span class="check">✓</span>Optional member community</li>
+              </ul>
+            </div>
+          </div>
+          <div class="body-copy">
+            <p>Unbecoming You is a deep, reflective exploration of identity, social expectations, personal reinvention, and the active pursuit of self-authorship. It challenges the assumption that growth is about adding new layers; instead, it argues that true evolution is about stripping away the conditioning that was never yours to begin with.</p>
+            <p>From early childhood, we internalize scripts written by our families, cultures, and peers. We construct elaborate personas to secure safety, approval, and success, only to wake up mid-career or mid-life feeling like strangers in our own lives. This title acts as a guide to identifying these invisible structures of conditioning.</p>
+            <p>The companion Toqqx agent serves as an objective thinking partner, prompting you to examine inherited beliefs, track recurring patterns of self-sabotage, and address the emotional resistance that surfaces when you attempt to change. Together, you will dissect the gap between your constructed identity and your authentic path.</p>
+            <p>By engaging in direct dialogue with the agent, you don’t just read about self-authorship—you actively practice it, rewriting your core narratives and building the psychological confidence to make choices aligned with your true values.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Title 3: Good Dad, Different Address -->
+      <a href="/good-dad/" class="title-card">
+        <div class="title-grid">
+          <div class="title-image-wrapper">
+            <img src="img/good-dad.png" alt="Good Dad, Different Address Cover" class="title-image">
+          </div>
+          <div>
+            <div class="title-meta"><span class="num">03</span><span class="rule"></span><span>Featured Title</span></div>
+            <h3>Good Dad, Different Address</h3>
+            <p class="tagline">A Guide for Divorced Fathers</p>
+            <div class="includes">
+              <h4>Includes</h4>
+              <ul>
+                <li><span class="check">✓</span>Full audiobook</li>
+                <li><span class="check">✓</span>Dedicated Toqqx agent</li>
+                <li><span class="check">✓</span>Optional member community</li>
+              </ul>
+            </div>
+          </div>
+          <div class="body-copy">
+            <p>Created specifically for separated and divorced fathers, Good Dad, Different Address is a practical blueprint for remaining an active, emotionally present, and deeply positive influence in your children's lives, regardless of living arrangements. It bypasses conventional legalistic advice to focus on the psychological and relational heart of fatherhood.</p>
+            <p>The transition from a full-time, cohabitating father to a dad with a "different address" is often fraught with grief, anger, and systemic confusion. This guide helps you navigate the complex transition from husband to co-parent, ensuring your children are protected from adult conflict and that their need for stability is placed above all else.</p>
+            <p>The parenting-focused Toqqx agent serves as a private, real-time sounding board. It helps you process co-parenting friction, draft constructive messages to your ex-spouse, design consistent households across different locations, and establish meaningful, high-value routines for the time you spend with your children.</p>
+            <p>Additionally, the agent acts as an emotional regulation partner, helping you manage stress and maintain a calm, authoritative, and loving presence for your kids when they need it most. You will build a clear, long-term vision of your identity as a father who leads with empathy and strength.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Title 4: The Sandwich Generation -->
+      <a href="/sandwich-gen/" class="title-card">
+        <div class="title-grid">
+          <div class="title-image-wrapper">
+            <img src="img/sandwich-gen.png" alt="The Sandwich Generation Cover" class="title-image">
+          </div>
+          <div>
+            <div class="title-meta"><span class="num">04</span><span class="rule"></span><span>Featured Title</span></div>
+            <h3>The Sandwich Generation</h3>
+            <p class="tagline">Navigating Dual Care Responsibilities</p>
+            <div class="includes">
+              <h4>Includes</h4>
+              <ul>
+                <li><span class="check">✓</span>Full audiobook</li>
+                <li><span class="check">✓</span>Dedicated Toqqx agent</li>
+                <li><span class="check">✓</span>Optional member community</li>
+              </ul>
+            </div>
+          </div>
+          <div class="body-copy">
+            <p>A compassionate and highly practical guide designed for those caught in the double caregiving squeeze: raising growing children while simultaneously managing the declining health and care of aging parents. This book addresses the financial, physical, and emotional exhaustion unique to this life stage.</p>
+            <p>Being a caregiver for two generations requires a masterclass in boundary setting, emotional intelligence, and self-preservation. This title dives deep into the realities of sibling dynamics, end-of-life care conversations, and the persistent guilt of feeling like you are failing everyone because your attention is constantly divided.</p>
+            <p>The companion Toqqx agent acts as a vital sanity check and organizational partner. It helps you map out care schedules, organize medical information, process caregiver grief and fatigue, and find local resources to distribute the physical workload.</p>
+            <p>By interacting with the agent, you will develop personalized coping strategies to establish healthy boundaries, manage daily stress, and protect your own mental and physical well-being. The goal is to move from a state of constant emergency management to one of structured, sustainable care.</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="ecosystem-pillars" class="section section-deep">
+  <div class="container">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto 64px;">
+      <p class="kicker">The Power of the Ecosystem</p>
+      <h2>More Than an Audiobook. <span class="grad">An Active Partnership.</span></h2>
+      <p class="sub" style="margin-top: 16px;">Talks With Toqqx is built on three core pillars designed to take you from passive listening to active application, collective learning, and shared growth.</p>
+    </div>
+
+    <div class="pillars-grid">
+      <!-- Pillar 1: Hermes Agent -->
+      <div class="pillar-card">
+        <div class="pillar-icon">🤖</div>
+        <h3>The Hermes Agent</h3>
+        <p class="pillar-tagline">Your Custom Thinking Partner</p>
+        <div class="pillar-body">
+          <p>The Hermes Agent is a particularly powerful partner because it bypasses generic AI limitations to act as a deep cognitive extension of the audiobook itself.</p>
+          <p>Equipped with <strong>long-term conversational memory</strong> and deep awareness of each title's frameworks, Hermes doesn't just answer questions—it prompts you to reflect, pressure-tests your ideas, holds you accountable, and functions as a dedicated teacher, sidekick, and mentor throughout your personal growth journey.</p>
+        </div>
+      </div>
+
+      <!-- Pillar 2: Whop Communities -->
+      <div class="pillar-card">
+        <div class="pillar-icon">👥</div>
+        <h3>Whop Communities</h3>
+        <p class="pillar-tagline">Collective Momentum</p>
+        <div class="pillar-body">
+          <p>Traditional audiobooks are consumed in isolation, but true transformation happens through shared experience.</p>
+          <p>Joining the Whop-based member communities unlocks powerful advantages: you can collaborate with peers reading the same title, share wins and setbacks, access exclusive creator updates, participate in live broadcasts, and accelerate your learning inside a focused ecosystem.</p>
+        </div>
+      </div>
+
+      <!-- Pillar 3: Affiliate Program -->
+      <div class="pillar-card highlight">
+        <div class="pillar-icon">📈</div>
+        <h3>30% Affiliate Program</h3>
+        <p class="pillar-tagline">Rewards for Community Growth</p>
+        <div class="pillar-body">
+          <p>We reward you directly for helping to grow the audience of the audiobooks you love.</p>
+          <p>By sharing your unique link, you receive a generous <strong>30% recurring commission</strong> on every member you refer. The math makes sense: <strong>just 4 referrals yield 120%</strong>—meaning your own membership is completely paid for, while creating an ongoing stream of passive reward.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="depth" class="closing">
+  <span class="closing-glow"></span>
+  <div class="closing-inner">
+    <p class="kicker">Designed for Depth, Not Passive Consumption</p>
+    <h2>The most valuable insights are the ones you <span class="grad">actively work through.</span></h2>
+    <p class="lead">Every title combines long-form audio with a conversational AI layer designed to help you reflect, apply, question, and evolve the material in a way that feels personal and alive.</p>
+    <p class="sub">Choose the titles that resonate with where you are now. Go deeper when you’re ready.</p>
+    <div class="cta-row" style="justify-content:center;margin-top:40px">
+      <a href="#titles" class="btn btn-primary">See the featured titles →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">© QUIETORE</div>
+    <div class="footer-sub">PRECISION IN THE QUIET</div>
+  </div>
+</footer>
+
 </body>
 </html>
